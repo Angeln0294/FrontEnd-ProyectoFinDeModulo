@@ -45,10 +45,10 @@ export default function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Síguenos</h4>
           <div className="flex gap-3 text-xs">
-            <a href="#facebook" className="bg-gray-800 hover:bg-green-500 hover:text-white px-3 py-2 rounded transition-all text-center min-w-[75px]">
+            <a href="#facebook" className="bg-gray-800 hover:bg-green-500 hover:text-white px-3 py-2 rounded transition-all text-center">
               Facebook
             </a>
-            <a href="#instagram" className="bg-gray-800 hover:bg-green-500 hover:text-white px-3 py-2 rounded transition-all text-center min-w-[75px]">
+            <a href="#instagram" className="bg-gray-800 hover:bg-green-500 hover:text-white px-3 py-2 rounded transition-all text-center">
               Instagram
             </a>
           </div>
