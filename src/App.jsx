@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       
       {/* 2. PARTE CENTRAL: El contenido principal de tu página */}
-      <main className="flex flex-col items-center justify-center text-white py-20 px-4 flex-grow">
+      <main className="flex flex-col items-center justify-center text-white py-20 px-4">
         <h1 className="text-3xl md:text-5xl font-extrabold text-center tracking-tight">
           RESERVA TU CANCHA <span className="text-green-400 block md:inline">FÁCILMENTE</span>
         </h1>
