@@ -6,7 +6,7 @@ import SeccionCanchas from './components/SeccionCanchas';
 import EquipamientoDestacado from './components/EquipamientoDestacado';
 import SeccionContacto from './components/SeccionContacto';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop'; // <-- 1. IMPORTAMOS EL HELPER
+import ScrollToTop from './components/ScrollToTop';
 
 function PaginaInicio() {
   return (
@@ -21,14 +21,14 @@ function PaginaInicio() {
 export default function App() {
   return (
     <Router>
-      {/* 2. LO COLOCAMOS AQUÍ ARRIBA: Para que controle toda la navegación */}
-      <ScrollToTop />
+      <ScrollToTop /> 
       
       <div className="min-h-screen bg-[#0b132b] flex flex-col justify-between">
-        <Navbar />
-        
+        <Navbar/>
         <Routes>
           <Route path="/" element={<PaginaInicio />} />
+          <Route path="/canchas" element={<SeccionCanchas />} />
+          <Route path="/tienda" element={<EquipamientoDestacado />} />
           <Route path="/contacto" element={<SeccionContacto />} />
         </Routes>
         
