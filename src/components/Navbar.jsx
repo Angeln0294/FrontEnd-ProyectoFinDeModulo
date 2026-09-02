@@ -34,6 +34,7 @@ export default function Navbar() {
       <div className={`${isOpen ? 'block' : 'hidden'} w-full md:flex md:items-center md:w-auto mt-4 md:mt-0 transition-all duration-300`}>
         <ul className="flex flex-col md:flex-row gap-6 text-sm font-medium text-gray-300 md:items-center">
           <li><a href="#inicio" className="hover:text-green-400 transition-colors">Inicio</a></li>
+          <li><a href="#registro" className="hover:text-green-400 transition-colors">Registro</a></li>
           <li><a href="#canchas" className="hover:text-green-400 transition-colors">Nuestras Canchas</a></li>
           <li><a href="#tienda" className="hover:text-green-400 transition-colors">Tienda</a></li>
           <li><a href="#contacto" className="hover:text-green-400 transition-colors">Contacto</a></li>
