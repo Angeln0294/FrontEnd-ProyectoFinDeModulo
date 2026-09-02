@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SeccionCanchas from './components/SeccionCanchas';
 import EquipamientoDestacado from './components/EquipamientoDestacado';
+import SeccionContacto from './components/SeccionContacto'; // <-- 1. IMPORTAMOS EL CONTACTO
 import Footer from './components/Footer';
 
 export default function App() {
@@ -11,16 +12,19 @@ export default function App() {
       {/* Barra de navegación superior */}
       <Navbar />
       
-      {/* Contenido principal en cascada */}
+      {/* Estructura central en cascada */}
       <main className="w-full">
-        {/* Inicio / Banner de Bienvenida */}
+        {/* 1. Inicio / Banner */}
         <Hero />
         
-        {/* Alquiler de Canchas */}
+        {/* 2. Listado de Canchas */}
         <SeccionCanchas />
         
-        {/* 2. TIENDA DE PRODUCTOS DEBAJO DE LAS CANCHAS */}
+        {/* 3. Tienda de Equipamiento */}
         <EquipamientoDestacado />
+        
+        {/* 4. SECCIÓN DE CONTACTO DEBAJO DE LA TIENDA */}
+        <SeccionContacto />
       </main>
       
       {/* Pie de página inferior */}
