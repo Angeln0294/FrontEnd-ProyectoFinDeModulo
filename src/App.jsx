@@ -1,20 +1,25 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import SeccionCanchas from './components/SeccionCanchas'; // <-- 1. IMPORTAMOS LAS CANCHAS
 import Footer from './components/Footer';
 
 export default function App() {
   return (
     <div className="min-h-screen bg-[#0b132b] flex flex-col justify-between">
-      {/* 1. Navbar arriba */}
+      {/* Barra de navegación */}
       <Navbar />
       
-      {/* 2. El Banner de Inicio al medio ocupando su espacio */}
+      {/* Contenido dinámico */}
       <main className="w-full">
+        {/* Primero va el Banner de bienvenida */}
         <Hero />
+        
+        {/* Segundo van tus tarjetas de fútbol */}
+        <SeccionCanchas />
       </main>
       
-      {/* 3. El Footer abajo de todo */}
+      {/* Pie de página */}
       <Footer />
     </div>
   );
