@@ -1,30 +1,21 @@
 import React from 'react';
 import Navbar from './components/Navbar';
+import Hero from './components/Hero';
 import Footer from './components/Footer';
 
-function App() {
+export default function App() {
   return (
-    // Este contenedor principal ocupa toda la pantalla y organiza los bloques hacia abajo
     <div className="min-h-screen bg-[#0b132b] flex flex-col justify-between">
-      
-      {/* 1. PARTE SUPERIOR: Barra de navegación */}
+      {/* 1. Navbar arriba */}
       <Navbar />
       
-      {/* 2. PARTE CENTRAL: El contenido principal de tu página */}
-      <main className="flex flex-col items-center justify-center text-white py-20 px-4">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-center tracking-tight">
-          RESERVA TU CANCHA <span className="text-green-400 block md:inline">FÁCILMENTE</span>
-        </h1>
-        <p className="mt-4 text-gray-400 text-sm max-w-sm text-center">
-          Pronto añadiremos aquí la sección de canchas y la tienda de equipamiento.
-        </p>
+      {/* 2. El Banner de Inicio al medio ocupando su espacio */}
+      <main className="w-full">
+        <Hero />
       </main>
       
-      {/* 3. PARTE INFERIOR: Pie de página */}
+      {/* 3. El Footer abajo de todo */}
       <Footer />
-
     </div>
   );
 }
-
-export default App;
