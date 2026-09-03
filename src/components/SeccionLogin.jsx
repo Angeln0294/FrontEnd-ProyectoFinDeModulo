@@ -105,13 +105,28 @@ export default function SeccionLogin() {
           <div className="grow border-t border-slate-800"></div>
         </div>
 
-        {/* Botón de Google */}
-        <button 
-          disabled={isSubmitting}
-          className="w-full flex items-center justify-center gap-2 p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition text-sm font-medium disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
-        >
-          <span>Google</span>
-        </button>
+        {/* CUADRÍCULA DE BOTONES SOCIALES SEPARADOS */}
+        <div className="grid grid-cols-2 gap-4 mt-2">
+          
+          {/* Botón: Google */}
+          <button 
+            type="button"
+            disabled={isSubmitting}
+            className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition text-sm font-medium disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed text-gray-200"
+          >
+            <span>Google</span>
+          </button>
+
+          {/* Botón: Facebook */}
+          <button 
+            type="button"
+            disabled={isSubmitting}
+            className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg bg-[#1877F2] hover:bg-[#1565D8] transition text-sm font-semibold disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed text-white shadow-lg shadow-[#1877F2]/10"
+          >
+            <span>Facebook</span>
+          </button>
+          
+        </div>
 
       </div>
     </div>
