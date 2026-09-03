@@ -1,4 +1,5 @@
 import React from 'react';
+import SeccionLogin from './components/SeccionLogin';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/tienda" element={<EquipamientoDestacado />} />
           <Route path="/contacto" element={<SeccionContacto />} />
           <Route path="/registro" element={<SeccionRegistro />} />
+          <Route path="/login" element={<SeccionLogin />} />
         </Routes>
         
         <Footer />
