@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  // Estado independiente para controlar el menú desplegable de Mi Cuenta
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
 
   return (
     <nav className="bg-[#0b132b] text-white px-6 py-4 md:px-12 flex flex-wrap items-center justify-between sticky top-0 z-50 shadow-md">
@@ -41,10 +43,46 @@ export default function Navbar() {
           <a href="#login" className="hover:text-green-400 transition-colors no-underline text-gray-300">
             Iniciar Sesión
           </a>
-          <div className="flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 cursor-pointer hover:bg-gray-700 transition-all">
-            <span className="text-xs text-gray-400">Mi Cuenta</span>
-            <div className="w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center text-xs">👤</div>
+          
+          {/* Contenedor del Dropdown (relative asegura que el menú flote justo aquí) */}
+          <div className="relative inline-block">
+            {/* Botón semántico interactivo */}
+            <button 
+              onClick={() => setIsAccountOpen(!isAccountOpen)}
+              className="flex items-center gap-2 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700 cursor-pointer hover:bg-gray-700 transition-all text-white focus:outline-none font-medium text-sm"
+            >
+              <span className="text-xs text-gray-400">Mi Cuenta</span>
+              <div className="w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center text-xs">👤</div>
+            </button>
+
+            {/* Menú Desplegable Flotante Protegido */}
+            {isAccountOpen && (
+              <div className="absolute right-0 mt-2 w-44 bg-slate-800 border border-slate-700 rounded-lg shadow-xl py-2 z-50 text-left">
+                <button 
+                  onClick={() => { setIsAccountOpen(false); alert("Ir a Mi Perfil (Ruta en construcción)"); }}
+                  className="w-full text-left px-4 py-2 hover:bg-slate-700 text-sm text-gray-200 hover:text-green-400 transition font-medium focus:outline-none"
+                >
+                  Mi Perfil
+                </button>
+                <button 
+                  onClick={() => { setIsAccountOpen(false); alert("Ir a Mis Reservas (Ruta en construcción)"); }}
+                  className="w-full text-left px-4 py-2 hover:bg-slate-700 text-sm text-gray-200 hover:text-green-400 transition font-medium focus:outline-none"
+                >
+                  Mis Reservas
+                </button>
+                
+                <hr className="border-slate-700 my-1" />
+                
+                <button 
+                  onClick={() => { setIsAccountOpen(false); alert('Sesión cerrada de forma segura'); }}
+                  className="w-full text-left px-4 py-2 hover:bg-red-900/30 text-red-400 text-sm transition font-medium focus:outline-none"
+                >
+                  Cerrar Sesión
+                </button>
+              </div>
+            )}
           </div>
+
         </div>
       </div>
 
