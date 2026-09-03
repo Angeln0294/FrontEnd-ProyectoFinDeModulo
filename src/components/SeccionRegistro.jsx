@@ -1,113 +1,128 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form'; // Importamos el hook principal
 
 export default function SeccionRegistro() {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+  // 1. Inicializamos useForm y extraemos los 3 pilares + watch
+  const { 
+    register, 
+    handleSubmit, 
+    watch,
+    formState: { errors } 
+  } = useForm({
+    mode: "onTouched" // Valida el campo apenas el usuario interactúa y sale de él
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // 2. Usamos 'watch' para capturar la contraseña y poder compararla
+  const contraseniaValue = watch("contrasenia");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("⚠️ Las contraseñas no coinciden. Inténtalo de nuevo.");
-      return;
-    }
-    alert(`⚽ ¡Cuenta creada con éxito para ${formData.nombre}! Bienvenido a CanchasYa.`);
-    setFormData({ nombre: '', email: '', password: '', confirmPassword: '' });
-  };
-
-  // Funciones para manejar los registros sociales más adelante
-  const handleSocialRegister = (provider) => {
-    alert(`🌐 Redireccionando al registro seguro con ${provider}...`);
+  // 3. Esta función solo se ejecuta si pasa TODAS las validaciones
+  const alEnviar = (datos) => {
+    console.log("¡Éxito! Datos recolectados:", datos);
+    // Acá iría el envío a tu backend futuro (Firebase/Node.js)
   };
 
   return (
-    <section className="w-full bg-[#0f172a] py-16 px-6 flex items-center justify-center min-h-[85vh]">
-      <div className="bg-[#1e293b] p-8 rounded-2xl border border-gray-800 shadow-2xl w-full max-w-md">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 text-white">
+      <div className="bg-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-800 w-full max-w-md">
+        <h2 className="text-3xl font-bold text-center mb-6 text-green-400">Crear Cuenta</h2>
         
-        {/* Encabezado */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">
-            Crea tu <span className="text-green-400">Cuenta</span>
-          </h2>
-          <p className="text-gray-400 text-xs mt-2">
-            Regístrate para empezar a reservar tus turnos al instante.
-          </p>
-        </div>
-
-        {/* BOTONES SOCIALES */}
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          {/* Botón Google */}
-          <button 
-            type="button"
-            onClick={() => handleSocialRegister('Google')}
-            className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-900 font-bold py-2.5 px-4 rounded-xl text-xs transition-colors shadow-sm cursor-pointer"
-          >
-            <span className="text-sm">🌐</span> Google
-          </button>
+        {/* 4. Conectamos handleSubmit a nuestro evento onSubmit nativo */}
+        <form onSubmit={handleSubmit(alEnviar)} className="space-y-4" noValidate>
           
-          {/* Botón Facebook */}
-          <button 
-            type="button"
-            onClick={() => handleSocialRegister('Facebook')}
-            className="flex-1 flex items-center justify-center gap-2 bg-[#1877f2] hover:bg-[#166fe5] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-colors shadow-sm cursor-pointer"
+          {/* Campo: Nombre Completo */}
+          <div>
+            <label className="block text-sm font-medium mb-1 text-slate-300">Nombre Completo</label>
+            <input
+              type="text"
+              placeholder="Juan Pérez"
+              // Reemplaza tus viejos onChange y value individuales
+              className={`w-full p-3 rounded-lg bg-slate-800 border ${errors.nombre ? 'border-red-500' : 'border-slate-700 focus:ring-green-500'} focus:outline-none focus:ring-2`}
+              {...register("nombre", { 
+                required: "El nombre es obligatorio.",
+                minLength: { value: 3, message: "Debe tener al menos 3 caracteres." }
+              })}
+            />
+            {/* Si existe un error en 'nombre', lo mostramos abajo */}
+            {errors.nombre && <p className="text-red-400 text-xs mt-1">{errors.nombre.message}</p>}
+          </div>
+
+          {/* Campo: Correo Electrónico */}
+          <div>
+            <label className="block text-sm font-medium mb-1 text-slate-300">Correo Electrónico</label>
+            <input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              className={`w-full p-3 rounded-lg bg-slate-800 border ${errors.email ? 'border-red-500' : 'border-slate-700 focus:ring-green-500'} focus:outline-none focus:ring-2`}
+              {...register("email", { 
+                required: "El correo es obligatorio.",
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "El formato de correo no es válido."
+                }
+              })}
+            />
+            {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
+          </div>
+
+          {/* Campo: Contraseña */}
+          <div>
+            <label className="block text-sm font-medium mb-1 text-slate-300">Contraseña</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              className={`w-full p-3 rounded-lg bg-slate-800 border ${errors.contrasenia ? 'border-red-500' : 'border-slate-700 focus:ring-green-500'} focus:outline-none focus:ring-2`}
+              {...register("contrasenia", { 
+                required: "La contraseña es obligatoria.",
+                minLength: { value: 6, message: "Mínimo 6 caracteres." }
+              })}
+            />
+            {errors.contrasenia && <p className="text-red-400 text-xs mt-1">{errors.contrasenia.message}</p>}
+          </div>
+
+          {/* Campo: Confirmar Contraseña */}
+          <div>
+            <label className="block text-sm font-medium mb-1 text-slate-300">Confirmar Contraseña</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              className={`w-full p-3 rounded-lg bg-slate-800 border ${errors.confirmarContrasenia ? 'border-red-500' : 'border-slate-700 focus:ring-green-500'} focus:outline-none focus:ring-2`}
+              {...register("confirmarContrasenia", { 
+                required: "Debes confirmar tu contraseña.",
+                // Validación personalizada: compara el valor actual con la contraseña guardada arriba
+                validate: valor => valor === contraseniaValue || "Las contraseñas no coinciden."
+              })}
+            />
+            {errors.confirmarContrasenia && <p className="text-red-400 text-xs mt-1">{errors.confirmarContrasenia.message}</p>}
+          </div>
+
+          {/* Botón Registrate */}
+          <button
+            type="submit"
+            className="w-full bg-green-500 hover:bg-green-600 text-slate-950 font-bold p-3 rounded-lg transition duration-200 mt-2 shadow-lg shadow-green-500/20"
           >
-            <span className="text-sm">📘</span> Facebook
-          </button>
-        </div>
-
-       {/* Divisor estético corregido sin advertencias */}
-    <div className="flex py-2 items-center mb-4 w-full">
-    <div className="border-t border-gray-800" style={{ flex: '1 1 0%' }}></div>
-    <span className="mx-4 text-gray-500 text-[10px] font-bold uppercase tracking-wider block whitespace-nowrap">
-    o regístrate con correo
-    </span>
-    <div className="border-t border-gray-800" style={{ flex: '1 1 0%' }}></div>
-    </div>
-
-
-        {/* Formulario Tradicional */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Nombre Completo</label>
-            <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required placeholder="Juan Pérez" className="w-full bg-[#0b132b] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-green-500 transition-colors" />
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Correo Electrónico</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="juan@email.com" className="w-full bg-[#0b132b] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-green-500 transition-colors" />
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Contraseña</label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} required placeholder="••••••••" className="w-full bg-[#0b132b] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-green-500 transition-colors" />
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Confirmar Contraseña</label>
-            <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required placeholder="••••••••" className="w-full bg-[#0b132b] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-green-500 transition-colors" />
-          </div>
-
-          <button type="submit" className="w-full bg-green-500 hover:bg-green-600 text-[#0b132b] font-black py-3 rounded-xl transition-colors text-sm tracking-wide mt-2 shadow-md shadow-green-500/10">
-            REGISTRARME
+            Registrarse
           </button>
         </form>
 
-        <div className="text-center mt-6 text-xs text-gray-400">
-          ¿Ya tienes una cuenta?{' '}
-          <a href="#login" className="text-green-400 hover:text-green-300 transition-colors no-underline font-semibold">
-            Inicia Sesión
-          </a>
+        {/* Divisor estético sin advertencias de flex-grow */}
+        {/* Divisor estético sin advertencias de flex-grow ni subrayados amarillos */}
+        <div className="relative flex py-5 items-center">
+            <div className="grow border-t border-slate-800"></div>
+            <span className="shrink mx-4 text-slate-500 text-xs uppercase tracking-wider">O registrarse con</span>
+            <div className="grow border-t border-slate-800"></div>
+        </div>
+
+
+        {/* Botones Sociales (Mantienen su diseño moderno de Tailwind) */}
+        <div className="grid grid-cols-2 gap-3">
+          <button className="flex items-center justify-center gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition text-sm">
+            <span>Google</span>
+          </button>
+          <button className="flex items-center justify-center gap-2 p-2.5 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition text-sm">
+            <span>Facebook</span>
+          </button>
         </div>
 
       </div>
-    </section>
+    </div>
   );
 }
