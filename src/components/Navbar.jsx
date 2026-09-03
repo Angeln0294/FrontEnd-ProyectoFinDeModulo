@@ -40,9 +40,9 @@ export default function Navbar() {
       {/* Login y Cuenta */}
       <div className={`${isOpen ? 'block' : 'hidden'} w-full md:flex md:items-center md:w-auto mt-4 md:mt-0`}>
         <div className="flex items-center gap-4 text-sm justify-between md:justify-end">
-          <a href="#login" className="hover:text-green-400 transition-colors no-underline text-gray-300">
-            Iniciar Sesión
-          </a>
+          <Link to="/login" className="hover:text-green-400 transition-colors no-underline text-gray-300">
+             Iniciar Sesión
+          </Link>
           
           {/* Contenedor del Dropdown (relative asegura que el menú flote justo aquí) */}
           <div className="relative inline-block">
