@@ -1,8 +1,44 @@
-function App() {
- 
- return (
-    <h1>Hola Mundo</h1>
-  )
+import React from 'react';
+import SeccionLogin from './components/SeccionLogin';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import SeccionCanchas from './components/SeccionCanchas';
+import EquipamientoDestacado from './components/EquipamientoDestacado';
+import SeccionContacto from './components/SeccionContacto';
+import SeccionRegistro from './components/SeccionRegistro';
+import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
+
+function PaginaInicio() {
+  return (
+    <main className="w-full">
+      <Hero />
+      <SeccionCanchas limitarA3={true} />
+      <EquipamientoDestacado />
+    </main>
+  );
 }
 
-export default App
+export default function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      
+      <div className="min-h-screen bg-[#0b132b] flex flex-col justify-between">
+        <Navbar />
+        
+        <Routes>
+          <Route path="/" element={<PaginaInicio />} />
+          <Route path="/canchas" element={<SeccionCanchas />} />
+          <Route path="/tienda" element={<EquipamientoDestacado />} />
+          <Route path="/contacto" element={<SeccionContacto />} />
+          <Route path="/registro" element={<SeccionRegistro />} />
+          <Route path="/login" element={<SeccionLogin />} />
+        </Routes>
+        
+        <Footer />
+      </div>
+    </Router>
+  );
+}
